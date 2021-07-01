@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@WebServlet(value = "/user",asyncSupported = true)
+@WebServlet(value = "/test",asyncSupported = true)
 public class TestAsyncSupport extends HttpServlet {
     private static final long serialVersionUID = 1L;
     ExecutorService executorService = Executors.newFixedThreadPool(50);
