@@ -17,15 +17,21 @@ public class TestNotAsyncSupport extends HttpServlet {
     private static final long serialVersionUID = 1L;
     ExecutorService executorService = Executors.newFixedThreadPool(50);
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name=  request.getParameter("name");
         final String uid= UUID.randomUUID().toString();
-        System.out.println("Run uid : "+uid);
-            System.out.println("Async start uid: "+uid);
+        System.out.println("Run "+name+" NotAsync: "+uid);
+        System.out.println("NotAsync "+name+": "+uid);
+        try {
+            System.out.println(Thread.currentThread().getName());
             try {
-                Thread.sleep(10000);
+                Thread.sleep(5000);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("Async End uid: "+uid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("NotAsync End "+name+": "+uid);
 
     }
 

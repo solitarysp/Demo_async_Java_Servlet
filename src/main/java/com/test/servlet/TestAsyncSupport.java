@@ -19,22 +19,23 @@ public class TestAsyncSupport extends HttpServlet {
     private static final long serialVersionUID = 1L;
     ExecutorService executorService = Executors.newFixedThreadPool(50);
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        final String name=  request.getParameter("name");
         final AsyncContext ctx =   request.startAsync();
         final String uid= UUID.randomUUID().toString();
-        System.out.println("Run uid : "+uid);
+        System.out.println("Run uid : "+uid+" Thread :"+Thread.currentThread().getName());
         // cho vaof queue chay bat dong bo
         executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    System.out.println("Async start uid: "+uid);
+                    System.out.println("Async start "+name+": "+uid);
                     try {
                    Thread.sleep(10000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Async End uid: "+uid);
-                    ctx.getResponse().getWriter().write("Hello user uid: "+uid);
+                    System.out.println("Async End "+name+": "+uid);
+                    ctx.getResponse().getWriter().write("Hello user "+name+": "+uid);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
